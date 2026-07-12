@@ -53,12 +53,12 @@ def get_video_title(url: str):
 
 def get_transcript(url: str):
 
-cookie_path = "/tmp/cookies.txt"
+    cookie_path = "/tmp/cookies.txt"
 
-shutil.copy(
-    "/etc/secrets/cookies.txt",
-    cookie_path
-)
+    shutil.copy(
+        "/etc/secrets/cookies.txt",
+        cookie_path
+    )
 
     opts = {
         "quiet": True,
