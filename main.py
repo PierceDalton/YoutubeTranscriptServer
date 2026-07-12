@@ -57,6 +57,7 @@ def get_transcript(url: str):
         "writeautomaticsub": True,
         "subtitleslangs": ["en", "fi", "sv"],
         "subtitlesformat": "vtt",
+        "cookiefile": "/etc/secrets/cookies.txt"
     }
 
     with YoutubeDL(opts) as ydl:
