@@ -48,6 +48,9 @@ def get_video_title(url: str):
 
     with YoutubeDL(opts) as ydl:
         info = ydl.extract_info(url, download=False)
+        print(info.keys())
+        print(info.get("subtitles"))
+        print(info.get("automatic_captions"))
         return info.get("title", "Unknown Title")
 
 
