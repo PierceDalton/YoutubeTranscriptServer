@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from yt_dlp import YoutubeDL
 import re
+import shutil
+import tempfile
+import os
 import requests
 import json
 
@@ -50,6 +53,13 @@ def get_video_title(url: str):
 
 def get_transcript(url: str):
 
+cookie_path = "/tmp/cookies.txt"
+
+shutil.copy(
+    "/etc/secrets/cookies.txt",
+    cookie_path
+)
+
     opts = {
         "quiet": True,
         "skip_download": True,
@@ -57,8 +67,7 @@ def get_transcript(url: str):
         "writeautomaticsub": True,
         "subtitleslangs": ["en", "fi", "sv"],
         "subtitlesformat": "vtt",
-        "cookiefile": "/etc/secrets/cookies.txt",
-        "cookiesfrombrowser": None,
+        "cookiefile": cookie_path,
         "cachedir": False
     }
 
