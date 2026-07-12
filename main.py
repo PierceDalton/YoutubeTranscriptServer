@@ -3,6 +3,9 @@ from pydantic import BaseModel
 from youtube_transcript_api import YouTubeTranscriptApi
 from requests import Session
 import re
+import os
+
+PROXY_URL = os.getenv("PROXY_URL")
 
 app = FastAPI(title="BURAN YouTube Transcript API")
 
@@ -36,10 +39,13 @@ def get_transcript(video_id: str):
 
     session = Session()
 
-    session.proxies = {
-        "http": "http://159.253.120.61:3128",
-        "https": "http://159.253.120.61:3128"
-    }
+    if PROXY_URL:
+        print(f"Using proxy: {PROXY_URL}")
+
+        session.proxies = {
+            "http": PROXY_URL,
+            "https": PROXY_URL
+        }
 
     api = YouTubeTranscriptApi(http_client=session)
 
