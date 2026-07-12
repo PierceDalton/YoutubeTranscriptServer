@@ -48,8 +48,10 @@ def get_video_title(url: str):
 
     with YoutubeDL(opts) as ydl:
         info = ydl.extract_info(url, download=False)
-        print(info.keys())
+        print("=== SUBTITLES ===")
         print(info.get("subtitles"))
+
+        print("=== AUTOMATIC CAPTIONS ===")
         print(info.get("automatic_captions"))
         return info.get("title", "Unknown Title")
 
@@ -69,7 +71,6 @@ def get_transcript(url: str):
         "writesubtitles": True,
         "writeautomaticsub": True,
         "subtitleslangs": ["en", "fi", "sv"],
-        "subtitlesformat": "vtt",
         "cookiefile": cookie_path,
         "cachedir": False
     }
@@ -97,7 +98,15 @@ def get_transcript(url: str):
         selected = list(subtitles.values())[0]
 
 
-    subtitle_url = selected[0]["url"]
+    subtitle = selected[0]
+
+    print("=== SELECTED SUBTITLE ===")
+    print(subtitle)
+
+    subtitle_url = subtitle["url"]
+
+    print("=== SUBTITLE URL ===")
+    print(subtitle_url)
 
 
     response = requests.get(subtitle_url)
